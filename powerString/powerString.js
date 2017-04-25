@@ -9,6 +9,14 @@
  * 
  */
 
-export default function(x, y) {
 
+/*
+I: Two integers as strings
+O: Integer
+C: 
+E: Negative numbers
+*/
+var powerString = function(x, y) {
+  return Math.pow(x, y);
 };
+
