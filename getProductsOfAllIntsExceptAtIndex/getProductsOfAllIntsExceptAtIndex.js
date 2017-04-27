@@ -18,7 +18,7 @@ function getProductsOfAllIntsExceptAtIndex(arr) {
 }
 
 function assert(expected, actual, message){
-    return expected === actual ? actual : message;
+  return expected === actual ? actual : message;
 }
 
 function compareArray(arr1, arr2) {
