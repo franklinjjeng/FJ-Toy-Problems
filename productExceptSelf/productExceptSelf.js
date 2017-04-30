@@ -9,20 +9,38 @@ by calculating:
 Do not use division in your solution.
 */
 
-function getProductsOfAllIntsExceptAtIndex(nums) {
-  var ascendingProd = nums.slice();
-  var descendingProd = nums.slice();
-  var length = nums.length;
-  for (var i = 1; i < length; i++) {
-    ascendingProd[i] = nums[i] * ascendingProd[i - 1];
-    descendingProd[length - 1 - i] = nums[length - 1 - i] * descendingProd[length - i];
-  }
-  for (i = 0; i < length; i++) {
-    if (i === 0) nums[i] = descendingProd[1]
-    else if (i === length - 1) nums[length - 1] = ascendingProd[length - 2];
-    else nums[i] = ascendingProd[i - 1] * descendingProd[i + 1];
-  }
-  return nums;
+// function getProductsOfAllIntsExceptAtIndex(nums) {
+//   var ascendingProd = nums.slice();
+//   var descendingProd = nums.slice();
+//   var length = nums.length;
+//   for (var i = 1; i < length; i++) {
+//     ascendingProd[i] = nums[i] * ascendingProd[i - 1];
+//     descendingProd[length - 1 - i] = nums[length - 1 - i] * descendingProd[length - i];
+//   }
+//   for (i = 0; i < length; i++) {
+//     if (i === 0) nums[i] = descendingProd[1]
+//     else if (i === length - 1) nums[length - 1] = ascendingProd[length - 2];
+//     else nums[i] = ascendingProd[i - 1] * descendingProd[i + 1];
+//   }
+//   return nums;
+// }
+
+function getProductsOfAllIntsExceptAtIndex(intArray) {
+    
+    var productsOfAllIntsExceptAtIndex = [];
+
+    var productSoFar = 1;
+    for (var i = 0; i < intArray.length; i++) {
+        productsOfAllIntsExceptAtIndex[i] = productSoFar;
+        productSoFar *= intArray[i];
+    }
+
+    productSoFar = 1;
+    for (var j = intArray.length - 1; j >= 0; j--) {
+        productsOfAllIntsExceptAtIndex[j] *= productSoFar;
+        productSoFar *= intArray[j];
+    }
+    return productsOfAllIntsExceptAtIndex;
 }
 
 function assert(expected, actual, message){
