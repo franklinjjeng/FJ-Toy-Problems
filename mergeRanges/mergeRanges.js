@@ -35,8 +35,27 @@ But we want the function to work even for very large numbers, like Unix timestam
 In any case, the spirit of the challenge is to merge meetings where startTime and endTime don't have an upper bound.
 */
 
-var mergeRanges = function() {
+var mergeRanges = function(array) {
+  array.sort((a, b) => (a.startTime - b.startTime));
+  var final = [array[0]];
+  var modified, end;
+  for (var i = 1; i < array.length; i++) {
+    end = final.length - 1;
+    if (array[i].startTime >= final[end].startTime && array[i].startTime <= final[end].endTime) {
+      if (array[i].endTime > final[end].endTime) {
+        final[end].endTime = array[i].endTime;
+      }
+      modified = true;
+    }
 
+    if (!modified) {
+      final.push(array[i]);
+      modified = false;
+    }
+
+    modified = false;
+  }
+  return final;
 }
 
 function assert(expected, actual, message){
@@ -45,7 +64,10 @@ function assert(expected, actual, message){
 
 var deepEquals = function(obj1, obj2) {
   for (var key in obj1) {
-    if (typeof obj1[key] === 'object') deepEquals(obj1[key], obj2[key]);
+    if (typeof obj1[key] === 'object') {
+      if (!obj2[key]) return false;
+      deepEquals(obj1[key], obj2[key]);
+    }
     else if (obj1[key] !== obj2[key]) return false;
   }
   return Object.keys(obj1).length === Object.keys(obj2).length;
@@ -64,5 +86,26 @@ var output = [
   {startTime: 3, endTime: 8},
   {startTime: 9, endTime: 12},
 ];
+
+console.log(assert(deepEquals(mergeRanges(input), output), true, 'should successfully merge ranges'));
+
+var input = [{startTime: 1, endTime: 2}, {startTime: 2, endTime: 3}];
+var output = [{startTime: 1, endTime: 3}];
+
+console.log(assert(deepEquals(mergeRanges(input), output), true, 'should successfully merge ranges'));
+
+var input = [{startTime: 1, endTime: 5}, {startTime: 2, endTime: 3}];
+var output = [{startTime: 1, endTime: 5}];
+
+console.log(assert(deepEquals(mergeRanges(input), output), true, 'should successfully merge ranges'));
+
+var input =   [
+  {startTime: 1, endTime: 10},
+  {startTime: 2, endTime: 6},
+  {startTime: 3, endTime: 5},
+  {startTime: 7, endTime: 9},
+];
+
+var output = [{startTime: 1, endTime: 10}];
 
 console.log(assert(deepEquals(mergeRanges(input), output), true, 'should successfully merge ranges'));
