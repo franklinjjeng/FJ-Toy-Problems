@@ -43,11 +43,13 @@ function assert(expected, actual, message){
   return expected === actual ? actual : message;
 }
 
-function compareArray(arr1, arr2) {
-  if (arr1.join('') !== arr2.join('')) return false;
-    return arr1.length === arr2.length;
-}
-
+var deepEquals = function(obj1, obj2) {
+  for (var key in obj1) {
+    if (typeof obj1[key] === 'object') deepEquals(obj1[key], obj2[key]);
+    else if (obj1[key] !== obj2[key]) return false;
+  }
+  return Object.keys(obj1).length === Object.keys(obj2).length;
+};
 
 var input = [
   {startTime: 0,  endTime: 1},
@@ -63,4 +65,4 @@ var output = [
   {startTime: 9, endTime: 12},
 ];
 
-console.log(assert(mergeRanges(input), output, 'should successfully merge ranges'));
+console.log(assert(deepEquals(input), output, 'should successfully merge ranges'));
