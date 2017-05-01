@@ -7,7 +7,7 @@ var deepEquals = function(obj1, obj2) {
   for (var key in obj1) {
     if (typeof obj1[key] === 'object') {
       if (!obj2[key]) return false;
-      deepEquals(obj1[key], obj2[key]);
+      if (!deepEquals(obj1[key], obj2[key])) return false;
     } else if (obj1[key] !== obj2[key]) return false;
   }
   return Object.keys(obj1).length === Object.keys(obj2).length;
@@ -57,6 +57,7 @@ var objArray1 = [
 ]
 
 var objArray2 = [
+  {startTime: 0, asdf: 2},
   {startTime: 3, endTime: 8},
   {startTime: 9, endTime: 12},
 ]
