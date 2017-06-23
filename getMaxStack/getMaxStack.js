@@ -33,35 +33,30 @@ Stack.prototype.peek = function() {
 };
 
 var MaxStack = function() {
-  Stack.call(this);
-  this.max = null;
+  this.stack = new Stack();
+  this.max = new Stack();
 }
 
 // TODO create function getMax()
-MaxStack.prototype = Object.create(Stack.prototype);
-MaxStack.prototype.constructor = MaxStack;
-
 MaxStack.prototype.push = function(item) {
-    if (this.max < item || this.max === null) {
-        this.max = item;
+
+    if (this.max.peek() === null || item >= this.max.peek()) {
+        this.max.push(item);
     }
 
-    this.items.push(item);
+    this.stack.push(item);
 }
 
 MaxStack.prototype.pop = function() {
-    
-    var popped = this.items.pop();
-
-    if (popped === this.max) {
-        this.max = Math.max(...this.items);
+    if (this.stack.peek() === this.max.peek()) {
+        this.max.pop();
     }
     
-    return popped;
+    return this.stack.pop();
 }
 
 MaxStack.prototype.getMax = function() {
-    return this.max;
+    return this.max.peek();
 }
 
 var maxStack = new MaxStack();
