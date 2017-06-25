@@ -9,6 +9,6 @@ output: 8 // best time to buy at 4 and sell at 12
 
 */
 
-var stockPrices = function() {
+var stockPrices = function(prices) {
   // TODO
 }
