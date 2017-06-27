@@ -22,7 +22,7 @@ example:
 
 var findRotationPoint = function(words) {
   for (var i = 1; i < words.length; i++) {
-    if (words[i - 1].charAt(0) > words[i].charAt(0)) {
+    if (words[i - 1] > words[i]) {
         return i;
     }
   }
@@ -44,4 +44,8 @@ var words = [
   'othellolagkage',
 ];
 
-console.log(findRotationPoint(words));
+console.log(findRotationPoint(words)); // 5
+
+
+
+
