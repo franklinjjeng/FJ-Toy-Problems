@@ -9,8 +9,13 @@ function LinkedListNode(value) {
 }
 
 var deleteNode = function(node) {
+  if (node.next === null) {
+    return 'cant delete last node';
+
+  }
   node.value = node.next.value;
   node.next = node.next.next;
+  
 }
 
 
