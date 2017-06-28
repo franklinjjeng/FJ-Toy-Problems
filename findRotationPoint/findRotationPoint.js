@@ -21,13 +21,28 @@ example:
 */
 
 var findRotationPoint = function(words) {
-  for (var i = 1; i < words.length; i++) {
-    if (words[i - 1] > words[i]) {
-        return i;
+
+  var floorIndex = 0;
+  var ceilingIndex = words.length - 1;
+  var first = words[0];
+
+  while (floorIndex < ceilingIndex) {
+
+    var guessIndex = Math.floor(floorIndex + ((ceilingIndex - floorIndex) / 2));
+
+    if (first > words[guessIndex]) {
+      ceilingIndex = guessIndex;
+    } else {
+      floorIndex = guessIndex;
     }
+
+    if (floorIndex + 1 === ceilingIndex) {
+      break;
+    }
+
   }
 
-  return 'no rotation';
+  return ceilingIndex;
 }
 
 var words = [
@@ -47,5 +62,10 @@ var words = [
 console.log(findRotationPoint(words)); // 5
 
 
+words = [5, 1, 2, 3, 4];
+console.log(findRotationPoint(words)); // 1
+
+words = [2, 3, 4, 5, 1];
+console.log(findRotationPoint(words)); // 4
 
 
