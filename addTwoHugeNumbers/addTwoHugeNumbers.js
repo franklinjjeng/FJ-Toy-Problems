@@ -19,88 +19,72 @@ Explanation: 12300040005 + 10001000100 = 22301040105.
 var addTwoHugeNumbers = function(num1, num2) {
   var node1 = num1;
   var node2 = num2;
-  var prev1 = prev2 = addition = null;
-  var count1 = count2 = maxLength = carry = add = 0;
+  var arrayList1 = [];
+  var arrayList2 = [];
+  var carry = 0;
 
   while (node1 !== null || node2 !== null) {
     if (node1 !== null) {
-      if (node1.value.toString().length > maxLength) {
-        maxLength = node1.value.toString().length;
-      }
-      node1.prev = prev1;
-      prev1 = node1;
+      arrayList1.push(node1.value);
       node1 = node1.next;
-      count1++;
     }
-
     if (node2 !== null) {
-      if (node2.value.toString().length > maxLength) {
-        maxLength = node2.value.toString().length;
-      }
-      node2.prev = prev2;
-      prev2 = node2;
-      node2 = node2.next;
-      count2++;
+      arrayList2.push(node2.value); 
+      node2 = node2.next
     }
   }
 
-  while (prev1 !== null || prev2 !== null) {
-    if (prev1 === null) {
-      addition = addNumbers(0, prev2.value, carry, maxLength);
-      add = addition.add;
-      prev2.value = add;
-      carry = addition.carry;
-      prev2 = prev2.prev;
-    } else if (prev2 === null) {
-      addition = addNumbers(prev1.value, 0, carry, maxLength);
-      add = addition.add;
-      prev1.value = add;
-      carry = addition.carry;
-      prev1 = prev1.prev;
-    } else {
-      addition = addNumbers(prev1.value, prev2.value, carry, maxLength);
-      add = addition.add;
-      if (count1 > count2) {
-        prev1.value = add;
-      } else {
-        prev2.value = add;
-      }
-      carry = addition.carry;
-      prev1 = prev1.prev;
-      prev2 = prev2.prev;
-    }
+  var fill0 = Array(Math.abs(arrayList1.length - arrayList2.length)).fill(0);
+  if (arrayList1.length > arrayList2.length) {
+    arrayList2 = fill0.concat(arrayList2);
+  } else {
+    arrayList1 = fill0.concat(arrayList1);
+  }
+
+  for (var i = arrayList1.length - 1; i >= 0; i--) {
+    var addition = addNumbers(arrayList1[i], arrayList2[i], carry);
+    arrayList1[i] = addition.add;
+    carry = addition.carry;
+  }
+
+  var prev = null;
+  for (var i = arrayList1.length - 1; i >= 0; i--) {
+    var node = new Node(arrayList1[i]);
+    node.next = prev;
+    prev = node;
   }
 
   if (carry > 0) {
-    var node = new Node(carry);
-    if (count1 > count2) {
-      node.next = num1;
-      num1 = node;
-    } else {
-      node.next = num2;
-      num2 = node;
-    } 
+    node = new Node(carry);
+    node.next = prev;
+    prev = node;
   }
 
-  return count1 > count2 ? num1 : num2;
+  return prev;
 }
 
-var addNumbers = function(num1, num2, prevCarry, length) {
+var addNumbers = function(num1, num2, prevCarry) {
   var add = JSON.stringify(num1 + num2 + prevCarry);
   var carry = 0;
-  if (add.length > length) {
-    add = add.split('');
-    carry = add.splice(0, add.length - length).join('');
-    add = add.join('');
+
+  add = add.split('');
+
+  if (add.length > 4) {
+    carry = add.splice(0, add.length - 4).join('');
   }
 
-  if (add == 0) {
+  while (add[0] === '0') {
+    add.splice(0, 1);
+  }
+
+  add = add.join('');
+
+  if (add.length === 0) {
     add = 0;
   } else {
     add = JSON.parse(add);
   }
-
-  if (carry == 0) {
+  if (carry.length === 0) {
     carry = 0;
   } else {
     carry = JSON.parse(carry);
@@ -109,7 +93,7 @@ var addNumbers = function(num1, num2, prevCarry, length) {
   return {add: add, carry: carry};
 }
 
-// console.log(addNumbers(500, 500, 0, 3));
+// console.log(addNumbers(1999, 8001, 0));
 
 
 var LinkedList = function() {
