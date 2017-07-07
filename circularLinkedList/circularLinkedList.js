@@ -29,4 +29,4 @@ c.next = d;
 d.next = e;
 e.next = b;
 
-circularLinkedList(a); // true;
+circularLinkedList(a); // false;
