@@ -36,26 +36,18 @@ In any case, the spirit of the challenge is to merge meetings where startTime an
 */
 
 var mergeRanges = function(array) {
-  array.sort((a, b) => (a.startTime - b.startTime));
-  var final = [array[0]];
-  var modified, end;
+  array = array.sort((a, b) => a.startTime - b.startTime);
+  var result = [array[0]];
   for (var i = 1; i < array.length; i++) {
-    end = final.length - 1;
-    if (array[i].startTime >= final[end].startTime && array[i].startTime <= final[end].endTime) {
-      if (array[i].endTime > final[end].endTime) {
-        final[end].endTime = array[i].endTime;
+    if (array[i].startTime <= result[result.length - 1].endTime) {
+      if (array[i].endTime > result[result.length - 1].endTime) {
+        result[result.length - 1].endTime = array[i].endTime;
       }
-      modified = true;
+    } else {
+      result.push(array[i]);
     }
-
-    if (!modified) {
-      final.push(array[i]);
-      modified = false;
-    }
-
-    modified = false;
   }
-  return final;
+  return result;
 }
 
 function assert(expected, actual, message){
@@ -65,6 +57,7 @@ function assert(expected, actual, message){
 var deepEquals = function(obj1, obj2) {
   for (var key in obj1) {
     if (typeof obj1[key] === 'object') {
+      if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
       if (!obj2[key]) return false;
       if (!deepEquals(obj1[key], obj2[key])) return false;
     }
