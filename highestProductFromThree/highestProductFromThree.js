@@ -4,35 +4,21 @@ The input arrayOfInts will always have at least three integers.
 */
 
 var highestProductFromThree = function(array) {
-  // // O(nlogn) time
-  // array.sort();
-  // var length = array.length - 1;
-  // if (array[0] < 0 && array[1] < 0) return array[0] * array[1] * array[length];
-  // return array[length] * array[length - 1] * array[length - 2];
+  array.sort((a, b) => a - b);
 
-  // O(n) time and O(1) space
-  var highest = [];
-  var negative = [];
-  for (var i = 0; i < array.length; i++) {
-    if (array[i] < 0 && negative.length < 2) {
-      negative.push(array[i]);
-      negative.sort((a, b) => a - b);
-    } else if (array[i] < 0 && array[i] < negative[1]) {
-      negative[1] = array[i];
-      negative.sort((a, b) => a - b);
-    } else if (highest.length < 3) {
-      highest.push(array[i]);
-      highest.sort((a, b) => a - b);
-    } else if (array[i] > highest[0]) {
-      highest[0] = array[i];
-      highest.sort((a, b) => a - b);
-    }
-  }
+  var largest = array[array.length - 1];
+  var secondLargest = array[array.length - 3] * array[array.length - 2];
   
-  if (negative[0] * negative[1] > highest[0] * highest[1]) {
-    return negative[0] * negative[1] * highest[2];
+  if (array[0] < 0 && array[1] < 0) {
+    var twoNegs = array[0] * array[1];
   }
-  return highest[0] * highest[1] * highest[2];
+
+
+  if (twoNegs) {
+    return twoNegs > secondLargest ? twoNegs * largest : secondLargest * largest;
+  }
+
+  return secondLargest * largest;
 }
 
 

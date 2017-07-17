@@ -26,21 +26,29 @@ Do not use division in your solution.
 // }
 
 function getProductsOfAllIntsExceptAtIndex(intArray) {
-    
-    var productsOfAllIntsExceptAtIndex = [];
+  var result = [];
+  var prodAscending = intArray.slice();
+  var prodDescending = intArray.slice();
 
-    var productSoFar = 1;
-    for (var i = 0; i < intArray.length; i++) {
-        productsOfAllIntsExceptAtIndex[i] = productSoFar;
-        productSoFar *= intArray[i];
-    }
+  for (var i = 1; i < intArray.length; i++) {
+    prodAscending[i] *= prodAscending[i - 1];
+  }
 
-    productSoFar = 1;
-    for (var j = intArray.length - 1; j >= 0; j--) {
-        productsOfAllIntsExceptAtIndex[j] *= productSoFar;
-        productSoFar *= intArray[j];
+  for (var i = intArray.length - 2; i >= 0; i--) {
+    prodDescending[i] *= prodDescending[i + 1];
+  }
+
+  for (var i = 0; i < intArray.length; i++) {
+    if (i === 0) {
+      result.push(prodDescending[1])
+    } else if (i === intArray.length - 1) {
+      result.push(prodAscending[prodAscending.length - 2])
+    } else {
+      result.push(prodAscending[i - 1] * prodDescending[i + 1]);
     }
-    return productsOfAllIntsExceptAtIndex;
+  }
+
+  return result;
 }
 
 function assert(expected, actual, message){
