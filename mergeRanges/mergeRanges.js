@@ -36,8 +36,9 @@ In any case, the spirit of the challenge is to merge meetings where startTime an
 */
 
 var mergeRanges = function(array) {
-  array = array.sort((a, b) => a.startTime - b.startTime);
+  array.sort((a, b) => a.startTime - b.startTime);
   var result = [array[0]];
+
   for (var i = 1; i < array.length; i++) {
     if (array[i].startTime <= result[result.length - 1].endTime) {
       if (array[i].endTime > result[result.length - 1].endTime) {
@@ -47,6 +48,7 @@ var mergeRanges = function(array) {
       result.push(array[i]);
     }
   }
+
   return result;
 }
 
