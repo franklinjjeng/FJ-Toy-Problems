@@ -10,15 +10,15 @@ output: 8 // best time to buy at 4 and sell at 12
 */
 
 var stockPrices = function(prices) {
-  var lowest = prices[0];
   var max = 0;
+  var min = prices[0];
 
   for (var i = 1; i < prices.length; i++) {
-    if (max < prices[i] - lowest) {
-      max = prices[i] - lowest;
+    if (prices[i] - min > max) {
+      max = prices[i] - min;
     }
-    if (prices[i] < lowest) {
-      lowest = prices[i];
+    if (prices[i] < min) {
+      min = prices[i];
     }
   }
 
