@@ -27,7 +27,25 @@ Tree.prototype.addRight = function(value) {
 }
 
 var kthLargetsInBST = function(root, k) {
-  // TODO
+  var values = findValues(root);
+
+  return values[values.length - k];
+}
+
+var findValues = function(node, result) {
+  result = result || [];
+
+  if (node.left) {
+    findValues(node.left, result);
+  }
+
+  result.push(node.value);
+
+  if (node.right) {
+    findValues(node.right, result);
+  }
+
+  return result;
 }
 
 var simpleTree = new Tree(3);
