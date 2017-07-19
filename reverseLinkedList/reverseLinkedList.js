@@ -3,23 +3,17 @@ Given a linked list, reverse it in O(n) time and O(1) space
 */
 
 var reverseLinkedList = function(list) {
-  var prev = null;
   var node = list;
-  var next = node.next;
+  var prev = null;
 
   while (node) {
+    var next = node.next;
     node.next = prev;
     prev = node;
     node = next;
-    if (node && node.next === null) {
-      var head = node;
-    }
-    if (node) {
-      next = node.next;
-    }
   }
 
-  return head;
+  return prev;
 }
 
 var Node = function(value) {

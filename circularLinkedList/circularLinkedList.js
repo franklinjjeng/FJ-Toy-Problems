@@ -9,15 +9,20 @@ return true as the 5 connects to 2 and becomes circular;
 
 var circularLinkedList = function(node) {
   var first = node;
-  var second = node.next;
+  var second = node;
 
-  while (first !== null && second !== null) {
-    if (first.value === second.value) {
-      return false;
+  while (first || second) {
+
+    if (second.next === null) {
+      break
     }
-
+    
     first = first.next;
     second = second.next.next;
+
+    if (first === second) {
+      return false;
+    }
   }
 
   return true;
