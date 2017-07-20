@@ -59,3 +59,37 @@ c.next = d;
 d.next = e;
 
 console.log(rearrangeLastN(a, 3)); // [c, d, e, a, b]
+
+var a = new Node('a');
+var b = new Node('b');
+var c = new Node('c');
+var d = new Node('d');
+var e = new Node('e');
+a.next = b;
+b.next = c;
+c.next = d;
+d.next = e;
+
+console.log(rearrangeLastN(a, 5)); // [a, b, c, d, e]
+
+var a = new Node('a');
+var b = new Node('b');
+var c = new Node('c');
+var d = new Node('d');
+var e = new Node('e');
+a.next = b;
+b.next = c;
+c.next = d;
+d.next = e;
+console.log(rearrangeLastN(null, 1)); // null
+
+var a = new Node('a');
+var b = new Node('b');
+var c = new Node('c');
+var d = new Node('d');
+var e = new Node('e');
+a.next = b;
+b.next = c;
+c.next = d;
+d.next = e;
+console.log(rearrangeLastN(a, 0)); // [a, b, c, d, e]
