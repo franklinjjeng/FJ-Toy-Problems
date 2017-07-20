@@ -15,7 +15,16 @@ When building your function:
 */
 
 var inflightEntertainment = function(flightTime, movieTimes) {
-  // TODO
+  
+  for (var i = 0; i < movieTimes.length; i++) {
+    for (var j = i + 1; j < movieTimes.length; j++) {
+      if (movieTimes[i] + movieTimes[j] === flightTime) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 var flightTime = 30;
