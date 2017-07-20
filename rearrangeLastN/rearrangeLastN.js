@@ -14,7 +14,33 @@ rearrangeLastN(l, n) = [7, 1, 2, 3, 4, 5, 6].
 */
 
 var rearrangeLastN = function(list, n) {
-  // TODO
+  if (!list || n === 0) {
+    return list;
+  }
+
+  var node = list;
+  var prev = null;
+
+  while (node) {
+    node.prev = prev;
+    prev = node;
+    node = node.next;
+  }
+
+  var subTail = prev;
+
+  for (var i = 1; i < n; i++) {
+    prev = prev.prev;
+  }
+
+  if (!prev.prev) {
+    return list;
+  }
+
+  prev.prev.next = null;
+  subTail.next = list;
+
+  return prev;
 }
 
 var Node = function(value) {
