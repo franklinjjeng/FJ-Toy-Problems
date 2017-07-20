@@ -16,12 +16,21 @@ When building your function:
 
 var inflightEntertainment = function(flightTime, movieTimes) {
   
+  // for (var i = 0; i < movieTimes.length; i++) {
+  //   for (var j = i + 1; j < movieTimes.length; j++) {
+  //     if (movieTimes[i] + movieTimes[j] === flightTime) {
+  //       return true;
+  //     }
+  //   }
+  // }
+
+  var check = {};
+
   for (var i = 0; i < movieTimes.length; i++) {
-    for (var j = i + 1; j < movieTimes.length; j++) {
-      if (movieTimes[i] + movieTimes[j] === flightTime) {
-        return true;
-      }
+    if (check[movieTimes[i]]) {
+      return true;
     }
+    check[flightTime - movieTimes[i]] = true;
   }
 
   return false;
