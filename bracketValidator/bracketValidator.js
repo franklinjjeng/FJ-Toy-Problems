@@ -14,9 +14,28 @@ Examples:
 */
 
 var bracketValidator = function(string) {
-  // TODO
+  var close = [];
+
+  for (var i = 0; i < string.length; i++) {
+
+    if (string.charAt(i) === '{') {
+      close.push('}');
+    } else if (string.charAt(i) === '(') {
+      close.push(')');
+    } else if (string.charAt(i) === '[') {
+      close.push(']');
+    } else if (string.charAt(i) === close[close.length - 1]) {
+      close.pop();
+    } else if (string.charAt(i) !== ' ') {
+      return false;
+    }
+
+  }
+
+  return true;
 }
 
 console.log(bracketValidator("{ [ ] ( ) }")); // true
 console.log(bracketValidator("{ [ ( ] ) }")); // false
 console.log(bracketValidator("{ [ }")); //false
+console.log(bracketValidator("{ [ () ] }")); // true
