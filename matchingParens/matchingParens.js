@@ -9,7 +9,21 @@ the output should be 79 (position of the last parenthesis).
 */
 
 var matchingParens = function(string, openParenIndex) {
-  // TODO
+  var count = 0;
+
+  for (var i = openParenIndex ; i < string.length; i++) {
+    if (string.charAt(i) === '(') {
+      count++;
+    } else if (string.charAt(i) === ')') {
+      count--;
+    }
+
+    if (count === 0) {
+      return i;
+    }
+  }
+
+  return 'no matching parens';
 }
 
 
