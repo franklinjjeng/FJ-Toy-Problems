@@ -20,5 +20,23 @@ When writing your function, assume the message contains only letters and spaces,
 */
 
 var reverseWords = function(words) {
-  // TODO
+  words = words.split(' ');
+
+  for (var i = 0; i < Math.floor(words.length / 2); i++) {
+    var temp = words[i];
+    words[i] = words[words.length - 1 - i];
+    words[words.length - 1 - i] = temp;
+  }
+
+  return words.join(' ');
 }
+
+
+console.log(reverseWords('hello world')); // 'world hello'
+console.log(reverseWords('hello')); // 'hello'
+console.log(reverseWords('hello world this is a message')); // 'message a is this world hello'
+console.log(reverseWords('hello world this')); // 'this world hello'
+console.log(reverseWords('')); // ''
+
+var message = 'find you will pain only go you recordings security the into if';
+console.log(reverseWords(message)); // 'if into the security recordings you go only pain will you find'
