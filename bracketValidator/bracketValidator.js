@@ -32,10 +32,11 @@ var bracketValidator = function(string) {
 
   }
 
-  return true;
+  return close.length === 0;
 }
 
 console.log(bracketValidator("{ [ ] ( ) }")); // true
 console.log(bracketValidator("{ [ ( ] ) }")); // false
 console.log(bracketValidator("{ [ }")); //false
 console.log(bracketValidator("{ [ () ] }")); // true
+console.log(bracketValidator("{ [ () ]")); // false
