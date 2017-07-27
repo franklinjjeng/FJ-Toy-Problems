@@ -2,18 +2,10 @@
 Create a function that finds the nth factorial.
 */
 
-var nthFactorial = function(n) {
-  if (n === 0) {
-    return 1;
-  }
+var nthFactorial = function(n, result) {
+  result = result || 1;
 
-  var result = 1;
-
-  for (var i = 1; i <= n; i++) {
-    result *= i;
-  }
-
-  return result;
+  return n === 0 ? result : nthFactorial(n - 1, result * n);
 }
 
 console.log(nthFactorial(0)); // 1
