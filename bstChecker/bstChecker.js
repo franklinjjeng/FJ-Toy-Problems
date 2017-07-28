@@ -30,20 +30,8 @@ BinaryTreeNode.prototype.insertRight = function(value) {
 };
 
 var bstChecker = function(node, lower, upper) {
-
-  if (lower === null) {
-    if (node.value > upper) {
-      return false;
-    }
-  } else if (upper === null) {
-    if (node.value < lower) {
-      return false;
-    }
-  } else {
-    if (node.value >= upper || node.value <= lower) {
-      return false;
-    }
-    
+  if (node.value >= upper || node.value <= lower) {
+    return false;
   }
 
   if (node.left) {
@@ -51,6 +39,7 @@ var bstChecker = function(node, lower, upper) {
       return false;
     }
   }
+
   if (node.right) {
     if (!bstChecker(node.right, node.value, upper)) {
       return false;
@@ -68,4 +57,4 @@ top.left.insertRight(6);
 top.right.insertLeft(11);
 top.right.insertRight(13);
 
-console.log(bstChecker(top));
+console.log(bstChecker(top)); // true;

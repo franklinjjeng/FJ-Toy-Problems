@@ -15,24 +15,26 @@ Examples:
 
 var bracketValidator = function(string) {
   var close = [];
-
-  for (var i = 0; i < string.length; i++) {
-
-    if (string.charAt(i) === '{') {
-      close.push('}');
-    } else if (string.charAt(i) === '(') {
-      close.push(')');
-    } else if (string.charAt(i) === '[') {
-      close.push(']');
-    } else if (string.charAt(i) === close[close.length - 1]) {
-      close.pop();
-    } else if (string.charAt(i) !== ' ') {
-      return false;
-    }
-
+  var bracketMap = {
+    '{': '}',
+    '[': ']',
+    '(': ')'
   }
 
-  return close.length === 0;
+  for (var i = 0; i < string.length; i++) {
+    var char = string.charAt(i);
+    if (bracketMap[char]) {
+      close.push(bracketMap[char]);
+    } else if (char !== ' ') {
+      if (close[close.length - 1] === char) {
+        close.pop();
+      } else {
+        return false;
+      }
+    }
+  }
+
+  return close.length === 0 ? true : false;
 }
 
 console.log(bracketValidator("{ [ ] ( ) }")); // true

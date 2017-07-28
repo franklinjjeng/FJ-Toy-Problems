@@ -5,28 +5,27 @@ How quickly could we check if a given integer is in the array?
 
 var findInOrderedSet = function(array, k) {
   var floor = 0;
-  var ceiling = array.length;
+  var ceil = array.length - 1;
 
-  if (array[0] === k) {
-    return true;
-  }
+  while (floor < ceil) {
 
-  while (floor < ceiling) {
-    var check = Math.floor((floor + ceiling) / 2);
+    var check = Math.floor((floor + ceil) / 2);
+
     if (array[check] === k) {
       return true;
     } else if (array[check] > k) {
-      ceiling = check;
+      ceil = check;
     } else if (array[check] < k) {
       floor = check;
     }
 
-    if (floor + 1 === ceiling) {
-      return false;
+    if (floor + 1 >= ceil) {
+      return array[ceil] === k || array[floor] === k;
     }
+
   }
 
-  return false;
+  return array[0] === k;
 }
 
 

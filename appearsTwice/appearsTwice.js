@@ -4,23 +4,16 @@ Write a function for finding the number that appears twice.
 */
 
 var appearsTwice = function(array) {
+  var check = {};
 
-  // // O(n) space and time
-  // var count = {};
-
-  // for (var i = 0; i < array.length; i++) {
-  //   if (count[array[i]] === undefined) count[array[i]] = 0;
-  //   else return array[i];
-  // }
-
-  // O(nlogn) time O(1) space
-  array.sort((a, b) => (b - a));
-
-  for (var i = 0; i < array.length - 1; i++) {
-    if (array[i] === array[i + 1]) return array[i];
+  for (var i = 0; i < array.length; i++) {
+    var num = array[i];
+    if (!check[num]) {
+      check[num] = true;
+    } else {
+      return num;
+    }
   }
-
-  return 'no duplicate';
 }
 
 var array = [1, 2, 1, 4, 3];

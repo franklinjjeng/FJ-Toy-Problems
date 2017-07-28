@@ -11,21 +11,20 @@ var circularLinkedList = function(node) {
   var first = node;
   var second = node;
 
-  while (first || second) {
-
+  while (first && second) {
     if (second.next === null) {
-      break
+      return false;
     }
-    
+
     first = first.next;
     second = second.next.next;
 
-    if (first === second) {
-      return false;
+    if (first.value === second.value) {
+      return true;
     }
   }
 
-  return true;
+  return false;
 }
 
 
@@ -46,7 +45,7 @@ c.next = d;
 d.next = e;
 e.next = b;
 
-console.log(circularLinkedList(a)); // false;
+console.log(circularLinkedList(a)); // true;
 
 e.next = null;
-console.log(circularLinkedList(a)); // true;
+console.log(circularLinkedList(a)); // false;
