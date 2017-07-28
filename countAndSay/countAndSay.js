@@ -27,26 +27,25 @@ Output: "1211"
 
 var countAndSay = function(n, result) {
   result = result || '1';
-  var count = 0;
-  var num = result.charAt(0);
-  var temp = '';
 
-  if (n - 1 === 0) {
-    return result;
-  }
-
+  var oneNum = null;
+  var tempResult = '';
   for (var i = 0; i < result.length; i++) {
-    if (num === result.charAt(i)) {
-      count++;
+    var char = result.charAt(i);
+    if (!oneNum) {
+      oneNum = char;
+    } else if (oneNum.charAt(0) === char) {
+      oneNum = oneNum + char;
     } else {
-      temp = temp + JSON.stringify(count) + num;
-      count = 1;
-      num = result.charAt(i);
+      tempResult = tempResult + oneNum.length + oneNum.charAt(0);
+      oneNum = char;
     }
   }
 
-  temp = temp + JSON.stringify(count) + num;
-  return countAndSay(n - 1, temp);
+  tempResult = tempResult + oneNum.length + char;
+
+
+  return n === 1 ? result : countAndSay(n - 1, tempResult);
 }
 
 

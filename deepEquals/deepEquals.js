@@ -4,13 +4,20 @@ If they are the same, return true, else false;
 */
 
 var deepEquals = function(obj1, obj2) {
-  for (var key in obj1) {
-    if (typeof obj1[key] === 'object') {
-      if (!obj2[key]) return false;
-      if (!deepEquals(obj1[key], obj2[key])) return false;
-    } else if (obj1[key] !== obj2[key]) return false;
+  if (typeof obj1 === 'object') {
+    if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+      return false;
+    }
+    for (var key in obj1) {
+      if (!deepEquals(obj1[key], obj2[key])) {
+        return false;
+      }
+    }
+  } else if (obj1 !== obj2) {
+    return false;
   }
-  return Object.keys(obj1).length === Object.keys(obj2).length;
+
+  return true;
 };
 
 var assert = function(actual, expected, message) {
@@ -47,7 +54,13 @@ var c2 = {
   key1: {a: 1, b: 2},
 }
 
+var c3 = {
+  key2: 3,
+  key1: {a: 1, b: 2, c: 3},
+}
+
 console.log(assert(deepEquals(c1, c2), true, 'should compare nested objects properly'));
+console.log(assert(deepEquals(c1, c3), false, 'should compare nested objects properly'));
 
 
 var objArray1 = [
