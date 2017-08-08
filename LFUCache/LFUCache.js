@@ -52,12 +52,7 @@ LFUCache.prototype.get = function(key) {
 }
 
 LFUCache.prototype.put = function(key, value) {
-  // this.cache[key] = value;
-  // if (this.capacity > this.order.length) {
-  //   this.order.push(key);
-  // } else {
-  //   delete this.cache[this.order.shift()];
-  // }
+
   if (!this.cache[key]) {
     this.cache[key] = new Node(value, key);
     if (this.capacity > this.size) {
@@ -66,6 +61,8 @@ LFUCache.prototype.put = function(key, value) {
       delete this.cache[this.list.removeHead().key];
     }
     this.list.addToTail(this.cache[key]);
+  } else {
+    // move to tail if exists
   }
 }
 
@@ -106,6 +103,10 @@ LinkedList.prototype.addToTail = function(node) {
     node.prev = this.tail;
     this.tail = node;
   }
+}
+
+LinkedList.prototype.moveToTail = function(node) {
+  
 }
 
 
