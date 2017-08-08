@@ -30,6 +30,8 @@ var LFUCache = function(capacity) {
   this.capacity = capacity;
   this.cache = {};
   this.order = [];
+  this.list = new LinkedList();
+  this.size = 0;
 }
 
 LFUCache.prototype.get = function(key) {
@@ -50,11 +52,59 @@ LFUCache.prototype.get = function(key) {
 }
 
 LFUCache.prototype.put = function(key, value) {
-  this.cache[key] = value;
-  if (this.capacity > this.order.length) {
-    this.order.push(key);
+  // this.cache[key] = value;
+  // if (this.capacity > this.order.length) {
+  //   this.order.push(key);
+  // } else {
+  //   delete this.cache[this.order.shift()];
+  // }
+  if (!this.cache[key]) {
+    this.cache[key] = new Node(value, key);
+    if (this.capacity > this.size) {
+      this.size++;
+    } else {
+      delete this.cache[this.list.removeHead().key];
+    }
+    this.list.addToTail(this.cache[key]);
+  }
+}
+
+var LinkedList = function() {
+  this.head = null;
+  this.tail = null;
+}
+
+var Node = function(value, key) {
+  this.value = value;
+  this.key = key;
+  this.next = null;
+  this.prev = null;
+}
+
+LinkedList.prototype.removeNode = function(node) {
+  node.prev.next = node.next;
+  node.next.prev = node.prev;
+
+  return node;
+}
+
+LinkedList.prototype.removeHead = function() {
+  var oldHead = this.head;
+  this.head = this.head.next;
+  this.head.prev = null;
+
+  return oldHead;
+}
+
+LinkedList.prototype.addToTail = function(node) {
+  // var node = new Node(value);
+  if (this.head === null) {
+    this.head = node;
+    this.tail = node;
   } else {
-    delete this.cache[this.order.shift()];
+    this.tail.next = node;
+    node.prev = this.tail;
+    this.tail = node;
   }
 }
 
@@ -63,11 +113,18 @@ var cache = new LFUCache(2);
 
 cache.put(1, 1);
 cache.put(2, 2);
-console.log(cache.get(1));
-console.log(cache.get(3));
+// console.log(cache.get(1));
+// console.log(cache.get(3));
 cache.put(3, 3);
 console.log(cache.get(1));
 console.log(cache.cache);
 
-
+// var list = new LinkedList();
+// list.addToTail(1);
+// list.addToTail(2);
+// list.addToTail(3);
+// list.addToTail(4);
+// list.removeHead();
+// list.removeNode(list.head.next);
+// console.log(list.head);
 
