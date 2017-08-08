@@ -34,6 +34,15 @@ var LFUCache = function(capacity) {
 
 LFUCache.prototype.get = function(key) {
   if (this.cache[key]) {
+
+    for (var i = 0; i < this.order.length; i++) {
+      if (this.order[i] === key) {
+        this.order.splice(i, 1);
+        this.order.push(key);
+        break;
+      }
+    }
+
     return this.cache[key];
   }
 
