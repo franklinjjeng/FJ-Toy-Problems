@@ -21,7 +21,22 @@ sortScores(unsortedScores, HIGHEST_POSSIBLE_SCORE);
 */
 
 var sortScores = function(unsortedScores, highestScore) {
-  // TODO
+  var scoreCounter = new Array(highestScore).fill(0);
+  var result = [];
+
+  for (var i = 0; i < unsortedScores.length; i++) {
+    var score = unsortedScores[i];
+    scoreCounter[score]++;
+  }
+
+  for (var i = scoreCounter.length - 1; i >= 0; i--) {
+    while(scoreCounter[i] > 0) {
+      scoreCounter[i]--;
+      result.push(i);
+    }
+  }
+
+  return result;
 }
 
 var unsortedScores = [37, 89, 41, 65, 91, 53];
