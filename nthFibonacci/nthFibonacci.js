@@ -9,21 +9,36 @@ fib(3); // => 2
 fib(4); // => 3
 */ 
 
-var fib = function(n) {
+// var fib = function(n) {
+//   if (n === 0 || n === 1) {
+//     return n;
+//   }
+
+//   var prevPrev = 0
+//   var prev = 1;
+
+//   for (var i = 1; i < n; i++) {
+//     var result = prevPrev + prev;
+//     prevPrev = prev;
+//     prev = result;
+//   }
+
+//   return result;
+// }
+
+var fib = function(n, result, prev) {
   if (n === 0 || n === 1) {
     return n;
   }
 
-  var prevPrev = 0
-  var prev = 1;
+  result = result || 1;
+  prev = prev || 0;
 
-  for (var i = 1; i < n; i++) {
-    var result = prevPrev + prev;
-    prevPrev = prev;
-    prev = result;
-  }
+  var temp = prev;
+  prev = result;
+  result = result + temp;
 
-  return result;
+  return n === 2 ? result : fib(n - 1, result, prev);
 }
 
 console.log(fib(0)); // => 0
