@@ -19,30 +19,26 @@ var spiralTraversal = function(matrix) {
   var result = [];
 
   while (counter > 0) {
-
-    // traverse top left to top right
+    // for loop to traverse right top
     for (var i = 0; i < counter; i++) {
       result.push(matrix[start][start + i]);
     }
-    // decrement counter
     counter--;
 
-
-    // traverse top right to bottom right
+    // for loop to traverse down right
     for (var i = 0; i < counter; i++) {
-      result.push(matrix[length - counter - start + i][length - 1 - start]);
+      result.push(matrix[start + 1 + i][length - 1 - start]);
     }
 
-    // traverse bottom right to bottom left
+    // for loop to traverse left bottom
     for (var i = 0; i < counter; i++) {
-      result.push(matrix[length - 1 - start][length - 2 - start - i]);
+      result.push(matrix[length - 1 - start][length - 2 - i]);
     }
-    // decrement counter
     counter--;
 
-    // traverse bottom left to top left
+    // for loop to traverse up left
     for (var i = 0; i < counter; i++) {
-      result.push(matrix[length - 2 - start - i][start]);
+      result.push(matrix[length - 2 - i][start]);
     }
 
     start++;

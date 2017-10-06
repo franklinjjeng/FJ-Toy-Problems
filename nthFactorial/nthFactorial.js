@@ -3,9 +3,13 @@ Create a function that finds the nth factorial.
 */
 
 var nthFactorial = function(n, result) {
-  result = result || 1;
+  if (n === 0 || n === 1) {
+    return 1;
+  }
 
-  return n === 0 ? result : nthFactorial(n - 1, result * n);
+  result = result || 2;
+
+  return n === 2 ? result : nthFactorial(n - 1, result * n);
 }
 
 console.log(nthFactorial(0)); // 1

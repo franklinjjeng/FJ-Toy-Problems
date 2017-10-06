@@ -10,17 +10,18 @@ Output: 1
 */
 
 var minAbsDiff = function(array) {
-  var sorted = array.sort((a, b) => b - a);
-  var result = Math.abs(sorted[0] - sorted[1]);
+  var minDiff;
 
-  for (var i = 1; i < array.length - 1; i++) {
-    var check = Math.abs(sorted[i] - sorted[i + 1]);
-    if (result > check) {
-      result = check;
+  for (var i = 0; i < array.length; i++) {
+    for (var j = i + 1; j < array.length; j++) {
+      var diff = Math.abs(array[i] - array[j])
+      if (minDiff === undefined || minDiff > diff) {
+        minDiff = diff;
+      }
     }
   }
 
-  return result;
+  return minDiff;
 }
 
 var assert = function(actual, expected, message) {

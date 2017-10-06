@@ -16,16 +16,12 @@ var buildDeck = function(deck) {
 }
 
 var shuffle = function(deck) {
-  var random = Math.floor(Math.random() * 52);
-
   for (var i = 0; i < deck.length; i++) {
+    var random = Math.floor((Math.random() * (52 - i)) + i);
     var temp = deck[i];
     deck[i] = deck[random];
     deck[random] = temp;
-    random = Math.floor(Math.random() * (52 - i)) + i;
   }
-
-  return;
 }
 
 buildDeck(deck);
