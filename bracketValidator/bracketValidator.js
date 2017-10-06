@@ -23,10 +23,12 @@ var bracketValidator = function(string) {
 
   for (var i = 0; i < string.length; i++) {
     var char = string.charAt(i);
+    
     if (bracketMap[char]) {
       close.push(bracketMap[char]);
-    } else if (char !== ' ') {
-      if (close[close.length - 1] === char) {
+    } else if (char === ' ') {
+    } else {
+      if (char === close[close.length - 1]) {
         close.pop();
       } else {
         return false;

@@ -18,7 +18,7 @@ var stockPrices = function(prices) {
       max = prices[i] - min;
     }
     if (prices[i] < min) {
-      min = prices[i];
+      min = prices[i]
     }
   }
 

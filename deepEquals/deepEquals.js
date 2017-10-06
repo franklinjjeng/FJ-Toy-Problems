@@ -4,15 +4,18 @@ If they are the same, return true, else false;
 */
 
 var deepEquals = function(obj1, obj2) {
+
   if (typeof obj1 === 'object') {
     if (Object.keys(obj1).length !== Object.keys(obj2).length) {
       return false;
     }
+
     for (var key in obj1) {
       if (!deepEquals(obj1[key], obj2[key])) {
         return false;
       }
     }
+
   } else if (obj1 !== obj2) {
     return false;
   }

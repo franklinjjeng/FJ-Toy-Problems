@@ -5,29 +5,31 @@ Given an array of integers, find the largest consecutive sum
 
 var largestConsecutiveSum = function(num) {
   var max = 0;
-  var check = 0;
+  var current = 0;
 
   for (var i = 0; i < num.length; i++) {
-    if (num[i] < 0) {
-      var negCheck = num[i];
-      for (var j = i + 1; j < num.length; j++) {
+    if (num[i] >= 0) {
+      current += num[i];
+    } else {
+
+      var negCheck = 0;
+      for (var j = i; j < num.length; j++) {
         negCheck += num[j];
       }
 
-      if (negCheck + check > max) {
-        max = check + negCheck;
+      if (current + negCheck > max) {
+        max = current + negCheck;
       }
-      
-      check = 0;
 
-    } else {
-      check += num[i];
+      current = 0;
     }
 
-    if (check > max) {
-      max = check;
+    if (current > max) {
+      max = current;
     }
+
   }
+
 
   return max;
 }

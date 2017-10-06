@@ -20,26 +20,21 @@ There are 4 steps in the staircase, and you can jump up 2 or fewer steps at a ti
 There are 5 potential sequences in which you jump up the stairs either 2 or 1 at a time.
 */
 
-var climbingStairs = function(n, k, results, steps, stepCount) {
+var climbingStairs = function(n, k, results, steps) {
   results = results || [];
   steps = steps || [];
-
+  // iterate through the number of steps
   for (var i = 1; i <= k; i++) {
-    var stepCount = stepsSum(steps);
+    var stepCount = stepSum(steps);
 
-    if (i + stepCount <= n) {
-      steps.push(i);
-      climbingStairs(n, k, results, steps);
-
-    } else if (stepCount === n) {
-      
+    // base case
+    if (stepCount === n) {
       results.push(steps.slice());
       steps.pop();
-
-      if (i === k) {
-        steps.pop();
-      }
-      break;
+      return;
+    } else if (stepCount + i <= n) {
+      steps.push(i);
+      climbingStairs(n, k, results, steps);
     }
 
     if (i === k) {
@@ -51,12 +46,12 @@ var climbingStairs = function(n, k, results, steps, stepCount) {
   return results;
 }
 
-
-var stepsSum = function(array) {
+var stepSum = function(steps) {
   var count = 0;
-  for (var i = 0; i < array.length; i++) {
-    count += array[i];
+  for (var i = 0; i < steps.length; i++) {
+    count += steps[i];
   }
+
   return count;
 }
 

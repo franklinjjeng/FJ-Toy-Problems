@@ -13,10 +13,10 @@ console.log(mergeArrays(myArray, alicesArray));
 
 var mergeArrays = function(nums1, nums2) {
   var length = nums1.length + nums2.length;
-  result = [];
+  var result = [];
 
   for (var i = 0; i < length; i++) {
-    if (nums1.length === 0 || nums1[0] >= nums2[0]) {
+    if (nums1[0] === undefined || nums1[0] > nums2[0]) {
       result.push(nums2.shift());
     } else {
       result.push(nums1.shift());
