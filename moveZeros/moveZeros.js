@@ -3,22 +3,34 @@ Given an array of numbers, move the 0's to the right side of the array
 */
 
 var moveZeros = function(nums) {
-  var results = [];
-  var count = 0;
+  var startIndex = 0;
+  var endIndex = nums.length - 1;
 
-  for (var i = 0; i < nums.length; i++) {
-    if (nums[i] !== 0) {
-      results.push(nums[i]);
-    } else {
-      count++;
+  while (startIndex < endIndex) {
+
+    for (var i = startIndex; i < endIndex; i++) {
+      if (nums[i] === 0) {
+        break;
+      }
+      startIndex++;
     }
+
+    for (var i = endIndex; i > startIndex; i--) {
+      if (nums[i] !== 0) {
+        break;
+      }
+      endIndex--;
+    }
+
+    if (startIndex < endIndex) {
+      var temp = nums[startIndex];
+      nums[startIndex] = nums[endIndex];
+      nums[endIndex] = temp;
+    }
+
   }
 
-  for (var i = 0; i < count; i++) {
-    results.push(0);
-  }
-
-  return results;
+  return nums;
 }
 
 
